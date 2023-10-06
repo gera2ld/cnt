@@ -1,4 +1,5 @@
 import {
+  cors,
   logger,
   poweredBy,
 } from "https://deno.land/x/hono@v3.7.5/middleware.ts";
@@ -7,6 +8,8 @@ import { Hono } from "https://deno.land/x/hono@v3.7.5/mod.ts";
 const app = new Hono();
 
 app.use("*", logger(), poweredBy());
+app.use("/get/*", cors());
+app.use("/hit/*", cors());
 
 app.get("/get/:key", async (c) => {
   const { key } = c.req.param();
