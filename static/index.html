@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CNT - Super Light Counter API</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+    </style>
+    <script>
+      window.__jslib = {
+        githubCorner: {
+          url: 'https://github.com/gera2ld/cnt',
+          color: 'green',
+        },
+        webFont: true,
+      };
+    </script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/gh/gera2ld/js-lib@dist/unocss.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/gh/gera2ld/js-lib@dist/github-corner.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/gh/gera2ld/js-lib@dist/web-font.js"
+    ></script>
+  </head>
+  <body>
+    <div
+      id="app"
+      class="!flex flex-col justify-between max-w-[600px] h-screen text-center mx-auto px-2 pt-24"
+      hidden
+    >
+      <div>
+        <div class="flex justify-center items-end">
+          <div class="text-8xl font-bold">CNT</div>
+          <div class="ml-4 mb-2 text-lg font-bold">Super Light Counter API</div>
+        </div>
+        <div class="flex justify-center mt-12">
+          <ul class="text-left text-lg -ml-24">
+            <li>Free to use</li>
+            <li>Privacy friendly</li>
+            <li>Serverless or self-hosted</li>
+          </ul>
+        </div>
+      </div>
+      <div class="my-2 text-2xl">
+        <span class="text-orange-600" v-text="count || '...'"></span> people
+        think it is amazing.
+      </div>
+      <div class="my-24">
+        <div class="mb-8">
+          <a
+            href="#"
+            class="inline-block px-8 py-4 rounded text-white text-xl no-underline"
+            :class="voted ? 'cursor-not-allowed bg-green-200': 'bg-green-400 hover:bg-green-500'"
+            @click="onAmazing"
+          >
+            Amazing + 1
+          </a>
+          <a
+            class="inline-block ml-8 px-8 py-4 rounded text-white text-xl no-underline bg-gray-400 hover:bg-gray-500"
+            :href="githubUrl"
+          >
+            GitHub
+          </a>
+        </div>
+        <div v-if="voted" class="text-gray-500">
+          Thank you! You are amazing too.
+        </div>
+      </div>
+      <div class="py-4 text-gray-500">Powered by Hono and Deno</div>
+    </div>
+    <script type="module">
+      import ky from 'https://cdn.jsdelivr.net/npm/ky@1.0.1/+esm';
+      import {
+        createApp,
+        ref,
+        onMounted,
+      } from 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.js';
+
+      createApp({
+        setup() {
+          const count = ref(0);
+          const voted = ref(!!+sessionStorage.getItem('voted'));
+
+          const onAmazing = () => {
+            if (voted.value) return;
+            count.value += 1;
+            voted.value = true;
+            sessionStorage.setItem('voted', 1);
+            ky('https://cnt.deno.dev/hit/cnt-amazing');
+          };
+
+          onMounted(async () => {
+            const { data } = await ky(
+              'https://cnt.deno.dev/get/cnt-amazing',
+            ).json();
+            count.value = data;
+          });
+
+          return {
+            count,
+            voted,
+            onAmazing,
+            githubUrl: window.__jslib.githubCorner.url,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

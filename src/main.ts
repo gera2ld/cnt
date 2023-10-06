@@ -2,12 +2,15 @@ import {
   cors,
   logger,
   poweredBy,
+  serveStatic,
 } from "https://deno.land/x/hono@v3.7.5/middleware.ts";
 import { Hono } from "https://deno.land/x/hono@v3.7.5/mod.ts";
 
 const app = new Hono();
 
 app.use("*", logger(), poweredBy());
+app.use("/static/*", serveStatic({ root: "./static" }));
+app.use("/", serveStatic({ path: "./static/index.html" }));
 app.use("/get/*", cors());
 app.use("/hit/*", cors());
 
