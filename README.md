@@ -2,6 +2,9 @@
 
 Super light counter API powered by Hono and Deno.
 
+- Data is stored in Deno KV.
+- Easy setup with Deno Deploy or self-hosted.
+
 ## Usage
 
 Get count with a `key`:
