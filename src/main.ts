@@ -1,10 +1,8 @@
-import {
-  cors,
-  logger,
-  poweredBy,
-  serveStatic,
-} from "https://deno.land/x/hono@v3.7.5/middleware.ts";
-import { Hono } from "https://deno.land/x/hono@v3.7.5/mod.ts";
+import { cors } from "npm:hono/cors";
+import { logger } from "npm:hono/logger";
+import { poweredBy } from "npm:hono/powered-by";
+import { serveStatic } from "npm:hono/deno";
+import { Hono } from "npm:hono";
 
 const app = new Hono();
 
