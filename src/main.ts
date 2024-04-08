@@ -14,11 +14,14 @@ app.use("/hit/*", cors());
 
 app.get("/get/:key", async (c) => {
   const { key } = c.req.param();
-  const payload: { error?: string; data?: number } = {};
+  const keys = key.split(",").filter(Boolean).map((k) => ["count", k]);
+  const payload: { error?: string; data?: Record<string, number> } = {};
   try {
     const kv = await Deno.openKv();
-    const result = await kv.get<bigint>(["count", key]);
-    payload.data = Number(result.value ?? 0n);
+    const result = await kv.getMany<bigint[]>(keys);
+    payload.data = Object.fromEntries(
+      result.map((item) => [item.key.at(-1), Number(item.value ?? 0n)]),
+    );
   } catch (err) {
     console.error(err);
     payload.error = err?.message || "Unknown error";
