@@ -7,11 +7,11 @@ Super light counter API powered by Hono and Deno.
 
 ## Usage
 
-Get count with a `key`:
+Get count with keys:
 
 ```bash
-$ curl https://cnt.deno.dev/get/key
-# -> {"data":1024}
+$ curl https://cnt.deno.dev/get/key1,key2
+# -> {"data":{"key1":1024,"key2":0}}
 ```
 
 Increment count with a `key`:
