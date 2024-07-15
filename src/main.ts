@@ -1,8 +1,8 @@
-import { cors } from "npm:hono/cors";
-import { logger } from "npm:hono/logger";
-import { poweredBy } from "npm:hono/powered-by";
-import { serveStatic } from "npm:hono/deno";
-import { Hono } from "npm:hono";
+import { cors } from "jsr:@hono/hono/cors";
+import { logger } from "jsr:@hono/hono/logger";
+import { poweredBy } from "jsr:@hono/hono/powered-by";
+import { serveStatic } from "jsr:@hono/hono/deno";
+import { Hono } from "jsr:@hono/hono";
 
 const app = new Hono();
 

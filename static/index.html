@@ -103,7 +103,7 @@
             const { data } = await ky(
               'https://cnt.deno.dev/get/cnt-amazing',
             ).json();
-            count.value = data;
+            count.value = data['cnt-amazing'];
           });
 
           return {

@@ -2,12 +2,11 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "npm:hono": "npm:hono@4.0.1"
+      "jsr:@hono/hono": "jsr:@hono/hono@4.4.13"
     },
-    "npm": {
-      "hono@4.0.1": {
-        "integrity": "sha512-S9cREGPJIAK437RhroOf1PGlJPIlt5itl69OmQ6onPLo5pdCbSHGL8v4uAKxrdHjcTyuoyvKPqWm5jv0dGkdFA==",
-        "dependencies": {}
+    "jsr": {
+      "@hono/hono@4.4.13": {
+        "integrity": "bd8a736b7e77c6d285c186beb37526fcb0497f48b759d508e595464b5f2ffd5c"
       }
     }
   },
